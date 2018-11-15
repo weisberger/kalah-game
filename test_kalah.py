@@ -39,6 +39,38 @@ class KalahTestCase(unittest.TestCase):
         game.play('A')
         self.assertEqual(game.status(), (5, 1, 6, 6, 5, 0, 1, 5, 1, 6, 6, 5, 0, 1))
 
+    def test_crossing_other_bank(self):
+        game = Kalah(6, 4)
+        game.play('e')
+        game.play('E')
+        game.play('d')
+        game.play('D')
+        game.play('c')
+        game.play('C')
+        game.play('b')
+        game.play('B')
+        game.play('a')
+        game.play('A')
+        self.assertEquals(game.status(), (9, 4, 3, 2, 2, 1, 4, 9, 4, 3, 2, 1, 0, 4))
+
+    def test_EmptyHole(self):
+        game = Kalah(6, 4)
+        game.play('e')
+        self.assertEqual(game.status(), (4, 0, 5, 5, 5, 5, 0, 4, 4, 4, 4, 4, 4, 0))
+        game.play('A')
+        self.assertEqual(game.status(), (5, 1, 6, 5, 5, 5, 0, 4, 4, 4, 4, 4, 0, 1))
+        game.play('f')
+        self.assertEqual(game.status(), (0, 2, 7, 6, 6, 6, 0, 4, 4, 4, 4, 4, 0, 1))
+        self.assertRaises(ValueError, game.play, 'A')
+
+
+
+
+
+
+
+
+
 
 
 
