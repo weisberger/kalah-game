@@ -18,16 +18,21 @@ class Kalah(object):
             raise ValueError
         current = ord(hole) - 1
         i = 0
+        flag = 0
         while i < self.board[hole]:
             if current == 96:
                 if self.turn[0] == 1:
                     self.board['bankPlayerone'] += 1
+                    if self.board[hole] - i -1 == 0:
+                        flag = 1
                 else:
                    i -= 1
                 current = 70
             elif current == 64:
                 if self.turn[1] == 1:
                     self.board['bankPlayertow'] += 1
+                    if self.board[hole] - i - 1 == 0:
+                        flag = 1
                 else:
                     i -= 1
                 current = 102
@@ -36,9 +41,11 @@ class Kalah(object):
                 current -= 1
             i += 1
         self.board[hole] = 0
-        temp = self.turn[0]
-        self.turn[0] = self.turn[1]
-        self.turn[1] = temp
+        if not flag:
+            temp = self.turn[0]
+            self.turn[0] = self.turn[1]
+            self.turn[1] = temp
+        return f"Player {1 if self.turn[0] == 1 else 2} plays next"
 
 
 
