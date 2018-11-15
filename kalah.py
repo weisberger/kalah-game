@@ -14,11 +14,24 @@ class Kalah(object):
     def play(self, hole):
         if self.turn[0] == 1 and hole.isupper():
             raise IndexError
-        current = ord(hole)
+        current = ord(hole) - 1
         for i in range(self.board[hole]):
-            self.board[chr(current - 1)] += 1
-            current -= 1
+            if current == 96:
+                if self.turn[0] == 1:
+                    self.board['bankPlayerone'] += 1
+                current = 70
+            elif current == 64:
+                if self.turn[1] == 1:
+                    self.board['bankPlayertow'] += 1
+                current = 102
+            else:
+                self.board[chr(current)] += 1
+                current -= 1
         self.board[hole] = 0
+
+
+
+
 
         return
 
