@@ -1,0 +1,2 @@
+class Kalah(object):
+    pass
