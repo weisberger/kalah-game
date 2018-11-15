@@ -9,7 +9,7 @@ class Kalah(object):
         dictUppercase = dict(list(zip(lettersUppercase, [self.seeds]*holes))[::-1])
 
         self.board = {**dictLowercase, 'bankPlayerone': 0, **dictUppercase, 'bankPlayertow': 0}
-        self.turn = (1, 0)
+        self.turn = [1, 0]
 
     def play(self, hole):
         if self.turn[0] == 1 and hole.isupper():
@@ -28,6 +28,9 @@ class Kalah(object):
                 self.board[chr(current)] += 1
                 current -= 1
         self.board[hole] = 0
+        temp = self.turn[0]
+        self.turn[0] = self.turn[1]
+        self.turn[1] = temp
 
 
 
