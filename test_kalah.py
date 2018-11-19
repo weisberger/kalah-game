@@ -57,13 +57,13 @@ class KalahTestCase(unittest.TestCase):
         self.assertRaises(ValueError, game.play, 'A')
 
     def test_BonusMovePlayer1(self):
-        game = Kalah(6, 4)
-        self.assertEqual(game.play('d'), 'Player 1 plays next')
+       game = Kalah(6, 4)
+       self.assertEqual(game.play('d'), 'Player 1 plays next')
 
     def test_BonusMovePlayer2(self):
-        game = Kalah(6, 4)
-        game.play('f')
-        self.assertEqual(game.play('D'), 'Player 2 plays next')
+       game = Kalah(6, 4)
+       game.play('f')
+       self.assertEqual(game.play('D'), 'Player 2 plays next')
 
     def test_CapturePlayer1(self):
         game = Kalah(6, 4)
@@ -77,7 +77,7 @@ class KalahTestCase(unittest.TestCase):
         game.play('F')
         game.play('b')
         game.play('a')
-        self.assertEqual(game.status(), (0,5,0,1,0,0,11, 1, 11, 7, 6, 6, 0, 0))
+        self.assertEqual(game.status(), (0, 5, 0, 1, 0, 0, 11, 1, 11, 7, 6, 6, 0, 0))
 
 
 
