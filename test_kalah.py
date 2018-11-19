@@ -65,6 +65,23 @@ class KalahTestCase(unittest.TestCase):
         game.play('f')
         self.assertEqual(game.play('D'), 'Player 2 plays next')
 
+    def test_CapturePlayer1(self):
+        game = Kalah(6, 4)
+        game.play('f')
+        game.play('F')
+        game.play('b')
+        game.play('F')
+        game.play('c')
+        game.play('F')
+        game.play('d')
+        game.play('F')
+        game.play('b')
+        game.play('a')
+        self.assertEqual(game.status(), (0,5,0,1,0,0,11, 1, 11, 7, 6, 6, 0, 0))
+
+
+
+
 
 
 if __name__ == '__main__':
