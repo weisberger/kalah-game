@@ -97,7 +97,11 @@ class KalahTestCase(unittest.TestCase):
         game.setStatus({'f': 2, 'e': 3, 'd': 0, 'c': 0, 'b': 8, 'a': 8, 'bankPlayerone': 15, 'F': 0, 'E': 0, 'D': 0, 'C': 2, 'B': 0, 'A': 0, 'bankPlayertow': 10})
         self.assertEqual(game.play('f'), 'player 1 win')
 
-
+    def test_EndGamePlayer2Win(self):
+        game = Kalah(6, 4)
+        game.turn = [0, 1]
+        game.setStatus({'f': 0, 'e': 0, 'd': 0, 'c': 2, 'b': 0, 'a': 0, 'bankPlayerone': 10, 'F': 2, 'E': 3, 'D': 0, 'C': 0,'B': 8, 'A': 8, 'bankPlayertow': 15})
+        self.assertEqual(game.play('F'), 'player 2 win')
 
 
 if __name__ == '__main__':
