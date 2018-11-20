@@ -58,12 +58,22 @@ class Kalah(object):
                         self.board['bankPlayerone'] += self.board[Parallel] + 1
                         self.board[Parallel] = 0
                         self.board[current] = 0
-
-
         if not flag:
             temp = self.turn[0]
             self.turn[0] = self.turn[1]
             self.turn[1] = temp
+        if self.done() == True:
+            i = 'a'
+            while i in self.board:
+                self.board['bankPlayerone'] += self.board[i]
+                self.board['bankPlayertow'] += self.board[i.upper()]
+                i = chr(ord(i) + 1)
+            if self.board['bankPlayerone'] > self.board['bankPlayertow']:
+                 return 'player 1 win'
+            elif self.board['bankPlayerone'] < self.board['bankPlayertow']:
+                 return 'player 2 win'
+            else:
+                 return 'Tie'
         return f"Player {1 if self.turn[0] == 1 else 2} plays next"
 
         return
@@ -75,8 +85,19 @@ class Kalah(object):
         self.board = newStatus
 
     def done(self):
+        flagPlayerOne = 0
+        flagPlayerTow = 0
+        i = 'a'
+        while i in self.board.keys():
+            if self.board[i] != 0:
+                flagPlayerOne = 1
+            if self.board[i.upper()] != 0:
+                flagPlayerTow = 1
+            i = chr(ord(i) + 1)
+        return not (flagPlayerOne and flagPlayerTow)
+
         return
 
 
     def score(self):
-        return
+        return(self.board['bankPlayerone'], self.board['bankPlayertow'])

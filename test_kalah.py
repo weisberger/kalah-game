@@ -92,6 +92,10 @@ class KalahTestCase(unittest.TestCase):
         game.setStatus({'f': 4, 'e': 4, 'd': 4, 'c': 8, 'b': 0, 'a': 8, 'bankPlayerone': 1, 'F': 1, 'E': 0, 'D': 0, 'C': 0, 'B': 0, 'A': 5, 'bankPlayertow': 13})
         game.play('F')
         self.assertEqual(game.status(), (4, 4, 4, 8, 0, 8, 1, 0, 1, 0, 0, 0, 5, 13))
+    def test_EndGamePlayer1Win(self):
+        game = Kalah(6, 4)
+        game.setStatus({'f': 2, 'e': 3, 'd': 0, 'c': 0, 'b': 8, 'a': 8, 'bankPlayerone': 15, 'F': 0, 'E': 0, 'D': 0, 'C': 2, 'B': 0, 'A': 0, 'bankPlayertow': 10})
+        self.assertEqual(game.play('f'), 'player 1 win')
 
 
 
