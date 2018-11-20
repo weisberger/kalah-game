@@ -47,15 +47,17 @@ class Kalah(object):
                 if current.isupper() and self.turn[1]:#if the seeds were finished when he reached an empty hole that belonged to him
                     temp = self.holes - (ord(current) - ord('A') + 1) #Calculates the number of holes up to the current one
                     Parallel = chr(ord('a') + temp) #Calculates the hole parallel to the current hole
-                    self.board['bankPlayertow'] += self.board[Parallel ] + 1
-                    self.board[Parallel] = 0
-                    self.board[current] = 0
+                    if self.board[Parallel] != 0:
+                        self.board['bankPlayertow'] += self.board[Parallel ] + 1
+                        self.board[Parallel] = 0
+                        self.board[current] = 0
                 if current.islower() and self.turn[0] == 1:#if the seeds were finished when he reached an empty hole that belonged to him
                     temp = self.holes - (ord(current) - ord('a') + 1) #Calculates the number of holes up to the current one
                     Parallel = chr(ord('A') + temp) #Calculates the hole parallel to the current hole
-                    self.board['bankPlayerone'] += self.board[Parallel] + 1
-                    self.board[Parallel] = 0
-                    self.board[current] = 0
+                    if self.board[Parallel] != 0:
+                        self.board['bankPlayerone'] += self.board[Parallel] + 1
+                        self.board[Parallel] = 0
+                        self.board[current] = 0
 
 
         if not flag:
