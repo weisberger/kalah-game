@@ -79,6 +79,13 @@ class KalahTestCase(unittest.TestCase):
         game.play('a')
         self.assertEqual(game.status(), (0, 5, 0, 1, 0, 0, 11, 1, 11, 7, 6, 6, 0, 0))
 
+    def  test_CapturePlayer2(self):
+        game = Kalah(6, 4)
+        game.setStatus({'f': 4, 'e': 4, 'd': 4, 'c': 8, 'b': 8, 'a': 8, 'bankPlayerone': 1, 'F': 0, 'E': 0, 'D': 0, 'C': 0, 'B': 0, 'A': 9, 'bankPlayertow': 2})
+        game.turn = [0,1]
+        game.play('A')
+        print(game.status())
+        self.assertEqual(game.status(), (5, 5, 5, 9, 0, 9, 1, 1, 0, 0, 0, 0, 0, 13))
 
 
 
