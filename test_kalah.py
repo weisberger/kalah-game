@@ -84,9 +84,14 @@ class KalahTestCase(unittest.TestCase):
         game.setStatus({'f': 4, 'e': 4, 'd': 4, 'c': 8, 'b': 8, 'a': 8, 'bankPlayerone': 1, 'F': 0, 'E': 0, 'D': 0, 'C': 0, 'B': 0, 'A': 9, 'bankPlayertow': 2})
         game.turn = [0,1]
         game.play('A')
-        print(game.status())
         self.assertEqual(game.status(), (5, 5, 5, 9, 0, 9, 1, 1, 0, 0, 0, 0, 0, 13))
 
+    def test_NonCapture(self):
+        game = Kalah(6, 4)
+        game.turn = [0,1]
+        game.setStatus({'f': 4, 'e': 4, 'd': 4, 'c': 8, 'b': 0, 'a': 8, 'bankPlayerone': 1, 'F': 1, 'E': 0, 'D': 0, 'C': 0, 'B': 0, 'A': 5, 'bankPlayertow': 13})
+        game.play('F')
+        self.assertEqual(game.status(), (4, 4, 4, 8, 0, 8, 1, 0, 1, 0, 0, 0, 5, 13))
 
 
 
