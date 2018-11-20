@@ -73,7 +73,7 @@ class Kalah(object):
             elif self.board['bankPlayerone'] < self.board['bankPlayertow']:
                  return 'player 2 win'
             else:
-                 return 'Tie'
+                 return 'tie'
         return f"Player {1 if self.turn[0] == 1 else 2} plays next"
 
         return
@@ -81,7 +81,7 @@ class Kalah(object):
     def status(self):
         return tuple(self.board.values())
 
-    def setStatus(self , newStatus):
+    def setStatus(self, newStatus):
         self.board = newStatus
 
     def done(self):
