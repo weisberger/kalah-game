@@ -95,7 +95,6 @@ class Kalah(object):
                 flagPlayerTow = 1
             i = chr(ord(i) + 1)
         return not (flagPlayerOne and flagPlayerTow)
-
         return
 
 
