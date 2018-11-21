@@ -109,30 +109,36 @@ class Kalah(object):
     def status(self):
         return tuple(self.board.values())
 
-    def setStatus(self, newStatus):
-        self.board = newStatus
+    def set_status(self, new_status):
+        self.board = new_status
 
     def done(self):
         flag_player_one = 0
         flag_player_tow = 0
         i = 'a'
+        if self.turn[0] == 1:
 
-        while i in self.board.keys():
+            while i in self.board.keys():
 
-            if self.board[i] != 0:
-                flag_player_one = 1
+                if self.board[i] != 0:
+                    flag_player_one = 1
+                    return False
+                i = chr(ord(i) + 1)
+        else:
 
-            if self.board[i.upper()] != 0:
-                flag_player_tow = 1
+            while i in self.board.keys():
 
-            i = chr(ord(i) + 1)
+                if self.board[i.upper()] != 0:
+                    flag_player_tow = 1
+                    return False
+                i = chr(ord(i) + 1)
 
-        return not (flag_player_one and flag_player_tow)
+        return True
 
     def score(self):
         return (self.board['bank_player_one'], self.board['bank_player_tow'])
 
-    def myrender(self):
+    def my_render(self):
 
         return f" ****   ===========================================   ****\n" \
                f"*    *  |      |      |      |      |      |      |  *    *\n" \
@@ -145,7 +151,7 @@ class Kalah(object):
                f" ****   ===========================================   ****\n"
 
     def __str__(self):
-        return self.myrender()
+        return self.my_render()
 
     def __repr__(self):
         return f"Kalah({self.seeds}, {self.holes}, status={self.status()}, player={0 if self.turn[0] == 1 else 1})"

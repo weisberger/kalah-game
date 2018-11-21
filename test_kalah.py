@@ -82,7 +82,7 @@ class Kalah_testCase(unittest.TestCase):
 
     def test_capture_player_2(self):
         game = Kalah(6, 4)
-        game.setStatus(
+        game.set_status(
             {'f': 4, 'e': 4, 'd': 4, 'c': 8, 'b': 8, 'a': 8, 'bank_player_one': 1, 'F': 0, 'E': 0, 'D': 0, 'C': 0,
              'B': 0,
              'A': 9, 'bank_player_tow': 2})
@@ -93,7 +93,7 @@ class Kalah_testCase(unittest.TestCase):
     def test_non_capture(self):
         game = Kalah(6, 4)
         game.turn = [0, 1]
-        game.setStatus(
+        game.set_status(
             {'f': 4, 'e': 4, 'd': 4, 'c': 8, 'b': 0, 'a': 8, 'bank_player_one': 1, 'F': 1, 'E': 0, 'D': 0, 'C': 0,
              'B': 0,
              'A': 5, 'bank_player_tow': 13})
@@ -102,7 +102,7 @@ class Kalah_testCase(unittest.TestCase):
 
     def test_end_game_player_1_win(self):
         game = Kalah(6, 4)
-        game.setStatus(
+        game.set_status(
             {'f': 2, 'e': 3, 'd': 0, 'c': 0, 'b': 8, 'a': 8, 'bank_player_one': 15, 'F': 0, 'E': 0, 'D': 0, 'C': 2,
              'B': 0, 'A': 0, 'bank_player_tow': 10})
         self.assertEqual(game.play('f'), 'player 1 win')
@@ -110,14 +110,14 @@ class Kalah_testCase(unittest.TestCase):
     def test_end_game_player_2_win(self):
         game = Kalah(6, 4)
         game.turn = [0, 1]
-        game.setStatus(
+        game.set_status(
             {'f': 0, 'e': 0, 'd': 0, 'c': 2, 'b': 0, 'a': 0, 'bank_player_one': 10, 'F': 2, 'E': 3, 'D': 0, 'C': 0,
              'B': 8, 'A': 8, 'bank_player_tow': 15})
         self.assertEqual(game.play('F'), 'player 2 win')
 
     def test_end_tie(self):
         game = Kalah(6, 4)
-        game.setStatus(
+        game.set_status(
             {'f': 2, 'e': 2, 'd': 0, 'c': 0, 'b': 8, 'a': 8, 'bank_player_one': 2, 'F': 0, 'E': 0, 'D': 0, 'C': 2,
              'B': 0,
              'A': 0, 'bank_player_tow': 24})
