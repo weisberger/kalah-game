@@ -33,6 +33,3 @@ def render(nx, ny, my_data):
     ax.set_yticks([])
     pl.show()
 
-
-game = Kalah(6, 4)
-render(8, 2, game.board)

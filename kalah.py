@@ -16,7 +16,7 @@ class Kalah(object):
 
     def play(self, hole):
 
-        if self.turn[0] == 1 and hole.isupper():
+        if self.turn[0] == 1 and hole.isupper() or self.turn[1] == 1 and hole.islower():
             raise IndexError
 
         if self.board[hole] == 0:
@@ -92,14 +92,16 @@ class Kalah(object):
 
             while i in self.board:
                 self.board['bank_player_one'] += self.board[i]
+                self.board[i] = 0
                 self.board['bank_player_tow'] += self.board[i.upper()]
+                self.board[i.upper()] = 0
                 i = chr(ord(i) + 1)
 
             if self.board['bank_player_one'] > self.board['bank_player_tow']:
-                return 'player 1 win'
+                return 'Player 1 wins'
 
             elif self.board['bank_player_one'] < self.board['bank_player_tow']:
-                return 'player 2 win'
+                return 'Player 2 wins'
 
             else:
                 return 'tie'
@@ -139,16 +141,28 @@ class Kalah(object):
         return (self.board['bank_player_one'], self.board['bank_player_tow'])
 
     def my_render(self):
-
-        return f" ****   ===========================================   ****\n" \
-               f"*    *  |      |      |      |      |      |      |  *    *\n" \
-               f"*    *  |  {self.board['A']}{' ' if self.board['A']<10 else ''}  |  {self.board['B']}{' ' if self.board['B']<10 else ''}  |  {self.board['C']}{' ' if self.board['C']<10 else ''}  |  {self.board['D']}{' ' if self.board['D']<10 else ''}  |  {self.board['E']}{' ' if self.board['E']<10 else ''}  |  {self.board['F']}{' ' if self.board['F']<10 else ''}  |  *    *\n" \
-               f"*    *  |      |      |      |      |      |      |  *    *\n" \
-               f"* {self.board['bank_player_tow']}{' ' if self.board['bank_player_tow']<10 else ''} *  ===========================================  *{' ' if self.board['bank_player_one']<10 else ''}{self.board['bank_player_one']}  *\n" \
-               f"*    *  |      |      |      |      |      |      |  *    *\n" \
-               f"*    *  |  {self.board['a']}{' ' if self.board['a']<10 else ''}  |  {self.board['b']}{' ' if self.board['b']<10 else ''}  |  {self.board['c']}{' ' if self.board['c']<10 else ''}  |  {self.board['d']}{' ' if self.board['d']<10 else ''}  |  {self.board['e']}{' ' if self.board['e']<10 else ''}  |  {self.board['f']}{' ' if self.board['f']<10 else ''}  |  *    *\n" \
-               f"*    *  |      |      |      |      |      |      |  *    *\n" \
-               f" ****   ===========================================   ****\n"
+        a = ' **** '
+        b = '*    *'
+        c = '=' * 7
+        w1 = a + '  ' + c * self.holes + '   ' + a + '\n'
+        w2 = '*    *' + '  ' + '|      ' * self.holes + '|' + '  ' + '*    *\n'
+        w3 = b + '  '
+        for k, v in self.board.items():
+            if k == 'bank_player_one':
+                break
+            else:
+                w3 += f"|  {v}{' ' if v<10 else ''}  "
+        w3 += '|  ' + b + '\n'
+        w = f"* {self.board['bank_player_tow']}{' ' if self.board['bank_player_tow'] < 10 else ''} *   {c * self.holes}  *{' ' if self.board['bank_player_one'] < 10 else ''}{self.board['bank_player_one']}  *\n"
+        w5 = b + '  '
+        flag = 0
+        for k, v in self.board.items():
+            if k == 'bank_player_one':
+                flag = 1
+            if flag and k != 'bank_player_tow' and k != 'bank_player_one':
+                w5 += f"|  {v}{' ' if v<10 else ''}  "
+        w5 += '|  ' + b + '\n'
+        return w1 + w2 + w3 + w2 + w + w2 + w5 + w2 + w1
 
     def __str__(self):
         return self.my_render()

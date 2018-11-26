@@ -48,7 +48,7 @@ class Kalah_testCase(unittest.TestCase):
         game.play('B')
         game.play('a')
         game.play('A')
-        self.assertEquals(game.status(), (9, 4, 3, 2, 2, 1, 4, 9, 4, 3, 2, 1, 0, 4))
+        self.assertEqual(game.status(), (9, 4, 3, 2, 2, 1, 4, 9, 4, 3, 2, 1, 0, 4))
 
     def test_empty_hole(self):
         game = Kalah(6, 4)
@@ -105,7 +105,7 @@ class Kalah_testCase(unittest.TestCase):
         game.set_status(
             {'f': 2, 'e': 3, 'd': 0, 'c': 0, 'b': 8, 'a': 8, 'bank_player_one': 15, 'F': 0, 'E': 0, 'D': 0, 'C': 2,
              'B': 0, 'A': 0, 'bank_player_tow': 10})
-        self.assertEqual(game.play('f'), 'player 1 win')
+        self.assertEqual(game.play('f'), 'Player 1 wins')
 
     def test_end_game_player_2_win(self):
         game = Kalah(6, 4)
@@ -113,7 +113,7 @@ class Kalah_testCase(unittest.TestCase):
         game.set_status(
             {'f': 0, 'e': 0, 'd': 0, 'c': 2, 'b': 0, 'a': 0, 'bank_player_one': 10, 'F': 2, 'E': 3, 'D': 0, 'C': 0,
              'B': 8, 'A': 8, 'bank_player_tow': 15})
-        self.assertEqual(game.play('F'), 'player 2 win')
+        self.assertEqual(game.play('F'), 'Player 2 wins')
 
     def test_end_tie(self):
         game = Kalah(6, 4)
@@ -128,15 +128,28 @@ class Kalah_testCase(unittest.TestCase):
 
     def test_render(self):
         game = Kalah(6, 4)
-        s = f" ****   ===========================================   ****\n" \
-            f"*    *  |      |      |      |      |      |      |  *    *\n" \
-            f"*    *  |  {game.board['A']}{' ' if game.board['A']<10 else ''}  |  {game.board['B']}{' ' if game.board['B']<10 else ''}  |  {game.board['C']}{' ' if game.board['C']<10 else ''}  |  {game.board['D']}{' ' if game.board['D']<10 else ''}  |  {game.board['E']}{' ' if game.board['E']<10 else ''}  |  {game.board['F']}{' ' if game.board['F']<10 else ''}  |  *    *\n" \
-            f"*    *  |      |      |      |      |      |      |  *    *\n" \
-            f"* {game.board['bank_player_tow']}{' ' if game.board['bank_player_tow']<10 else ''} *  ===========================================  *{' ' if game.board['bank_player_one']<10 else ''}{game.board['bank_player_one']}  *\n" \
-            f"*    *  |      |      |      |      |      |      |  *    *\n" \
-            f"*    *  |  {game.board['a']}{' ' if game.board['a']<10 else ''}  |  {game.board['b']}{' ' if game.board['b']<10 else ''}  |  {game.board['c']}{' ' if game.board['c']<10 else ''}  |  {game.board['d']}{' ' if game.board['d']<10 else ''}  |  {game.board['e']}{' ' if game.board['e']<10 else ''}  |  {game.board['f']}{' ' if game.board['f']<10 else ''}  |  *    *\n" \
-            f"*    *  |      |      |      |      |      |      |  *    *\n" \
-            f" ****   ===========================================   ****\n"
+        a = ' **** '
+        b = '*    *'
+        c = '=' * 7
+        w1 = a + '  ' + c * game.holes + '   ' + a + "\n"
+        w2 = '*    *' + '  ' + '|      ' * game.holes + '|' + '  ' + '*    *\n'
+        w3 = b + '  '
+        for k, v in game.board.items():
+            if k == 'bank_player_one' or k == 'bank_player_one':
+                break
+            else:
+                w3 += f"|  {v}{' ' if v<10 else ''}  "
+        w3 += '|  ' + b + "\n"
+        w = f"* {game.board['bank_player_tow']}{' ' if game.board['bank_player_tow'] < 10 else ''} *   {c * game.holes}  *{' ' if game.board['bank_player_one'] < 10 else ''}{game.board['bank_player_one']}  *\n"
+        w5 = b + '  '
+        flag = 0
+        for k, v in game.board.items():
+            if k == 'bank_player_one':
+                flag = 1
+            if not flag:
+                w5 += f"|  {v}{' ' if v<10 else ''}  "
+        w5 += '|  ' + b + "\n"
+        s = w1 + w2 + w3 + w2 + w + w2 + w5 + w2 + w1
         self.assertEqual(game.__str__(), s)
 
 
